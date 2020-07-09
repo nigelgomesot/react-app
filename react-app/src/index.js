@@ -99,11 +99,13 @@ class Game extends React.Component {
 
   render() {
     const history = this.state.history;
-    const current = history[this.state.stepNumber];
+    const currentStepNumber = this.state.stepNumber;
+    const current = history[currentStepNumber];
     const winner = calculateWinner(current.squares);
     let status;
 
     const moves = history.map((step, move) => {
+      const isCurrentMove = currentStepNumber === move;
       const desc = move ?
         `Go to move #${move}` :
         `Go to game start`;
@@ -111,7 +113,9 @@ class Game extends React.Component {
 
         return (
           <li key={move}>
-            <button onClick={() => this.jumpTo(move)}>{desc}</button>&nbsp;
+            <button onClick={() => this.jumpTo(move)}>
+              <HistoryButtonText desc={desc} isCurrentMove={isCurrentMove}/>
+            </button>&nbsp;
             <span>row: {squareLocation[0]}</span>,&nbsp;
             <span>col: {squareLocation[1]}</span>
           </li>
@@ -187,4 +191,12 @@ function getSquareLocation(squareIndex) {
   ]
 
   return locations[squareIndex] || [null, null];
+}
+
+function HistoryButtonText(props) {
+  if (props.isCurrentMove) {
+    return <b>{props.desc}</b>
+  } else {
+    return props.desc;
+  }
 }
