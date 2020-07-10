@@ -33,7 +33,7 @@ class Board extends React.Component {
     );
   }
 
-  render() {
+  render_old() {
     return (
       <div>
         <div className="board-row">
@@ -51,6 +51,23 @@ class Board extends React.Component {
           {this.renderSquare(7)}
           {this.renderSquare(8)}
         </div>
+      </div>
+    );
+  }
+
+  render() {
+    let squareIndex = 0
+    return(
+      <div>
+        {[0,1,2].map(i => {
+          return <div className="board-row">
+            {
+              [0,1,2].map(j => {
+                return this.renderSquare(squareIndex++)
+              })
+            }
+          </div>
+        })}
       </div>
     );
   }
