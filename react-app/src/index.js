@@ -33,7 +33,7 @@ class Board extends React.Component {
     );
   }
 
-  render_old() {
+  render_old1() {
     return (
       <div>
         <div className="board-row">
@@ -55,8 +55,8 @@ class Board extends React.Component {
     );
   }
 
-  render() {
-    let squareIndex = 0
+  render_old2() {
+    let squareIndex = 0;
     return(
       <div>
         {[0,1,2].map(i => {
@@ -69,6 +69,24 @@ class Board extends React.Component {
           </div>
         })}
       </div>
+    );
+  }
+
+  render() {
+    const boardSize = 3;
+    const squares = [];
+
+    for (let i = 0; i < boardSize; i++) {
+      const row = [];
+
+      for (let j = 0; j < boardSize; j++) {
+        row.push(this.renderSquare(i * boardSize + j));
+      }
+      squares.push(<div className="board-row">{row}</div>);
+    }
+
+    return (
+      <div>{squares}</div>
     );
   }
 }
