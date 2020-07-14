@@ -16,8 +16,14 @@ import './index.css';
 // }
 
 function Square(props) {
+  let className = 'square';
+  console.log(`props.isWinnerSquare ${props.isWinnerSquare}`);
+  if (props.isWinnerSquare) {
+    className.concat(' winner-square');
+  }
+
   return (
-    <button className="square" onClick={props.onClick}>
+    <button className={className} onClick={props.onClick}>
       {props.value}
     </button>
   );
@@ -29,6 +35,7 @@ class Board extends React.Component {
       <Square
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
+        isWinnerSquare={this.props.winnerIndexes[i]}
       />
     );
   }
@@ -111,7 +118,7 @@ class Game extends React.Component {
     const current = history[history.length - 1];
     const squares = current.squares.slice();
 
-    if (calculateWinner(squares) || squares[i]) {
+    if (calculateWinnerIndexes(squares) || squares[i]) {
       return;
     }
 
@@ -144,7 +151,12 @@ class Game extends React.Component {
     const currentStepNumber = this.state.stepNumber;
     const isMovesHistoryAscending = this.state.isMovesHistoryAscending;
     const current = history[currentStepNumber];
-    const winner = calculateWinner(current.squares);
+    //const winner = calculateWinner(current.squares);
+    const winnerIndexes = calculateWinnerIndexes(current.squares) || [];
+    const winner = winnerIndexes ? current.squares[winnerIndexes[0]] : null;
+
+    console.log('current', current);
+    console.log('winnerIndexes', winnerIndexes);
     let status;
 
     const moves = history.map((step, move) => {
@@ -185,6 +197,7 @@ class Game extends React.Component {
           <Board
             squares={current.squares}
             onClick={i => this.handleClick(i)}
+            winnerIndexes={winnerIndexes}
           />
         </div>
         <div className="game-info">
@@ -222,6 +235,29 @@ function calculateWinner(squares) {
 
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
       return squares[a];
+    }
+  }
+
+  return null;
+}
+
+function calculateWinnerIndexes(squares) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+
+  for (let i = 0; i < lines.length; i++) {
+    const [a, b, c] = lines[i];
+
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return [a, b, c];
     }
   }
 
