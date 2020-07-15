@@ -17,9 +17,8 @@ import './index.css';
 
 function Square(props) {
   let className = 'square';
-  console.log(`props.isWinnerSquare ${props.isWinnerSquare}`);
   if (props.isWinnerSquare) {
-    className.concat(' winner-square');
+    className = className.concat(' winner-square');
   }
 
   return (
@@ -31,11 +30,13 @@ function Square(props) {
 
 class Board extends React.Component {
   renderSquare(i) {
+    const isWinnerSquare = this.props.winnerIndexes.includes(i);
+
     return (
       <Square
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
-        isWinnerSquare={this.props.winnerIndexes[i]}
+        isWinnerSquare={isWinnerSquare}
       />
     );
   }
@@ -155,8 +156,6 @@ class Game extends React.Component {
     const winnerIndexes = calculateWinnerIndexes(current.squares) || [];
     const winner = winnerIndexes ? current.squares[winnerIndexes[0]] : null;
 
-    console.log('current', current);
-    console.log('winnerIndexes', winnerIndexes);
     let status;
 
     const moves = history.map((step, move) => {
