@@ -48,3 +48,7 @@ ol, ul {
 .game-info {
   margin-left: 20px;
 }
+
+.winner-square {
+  border: 3px solid #00ff00;
+}
