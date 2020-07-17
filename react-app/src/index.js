@@ -155,6 +155,7 @@ class Game extends React.Component {
     //const winner = calculateWinner(current.squares);
     const winnerIndexes = calculateWinnerIndexes(current.squares) || [];
     const winner = winnerIndexes ? current.squares[winnerIndexes[0]] : null;
+    const isDraw = isGameDraw(current.squares);
 
     let status;
 
@@ -178,7 +179,9 @@ class Game extends React.Component {
 
     if (winner) {
       status = `Winner: ${winner}`;
-    } else if (currentStepNumber === 9) {
+    // } else if (currentStepNumber === 9) {
+    //   status = 'Game Draw';
+    } else if (isDraw) {
       status = 'Game Draw';
     } else {
       const nextPlayer = this.state.xIsNext ? 'X' : 'O';
@@ -263,6 +266,16 @@ function calculateWinnerIndexes(squares) {
   }
 
   return null;
+}
+
+function isGameDraw(squares) {
+  for (let i = 0; i < squares.length; i++) {
+    if (squares[i] === null) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 function getSquareLocation(squareIndex) {
