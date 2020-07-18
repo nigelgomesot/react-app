@@ -13,6 +13,49 @@ class App extends Component {
     }
   }
 
+  calculate = () => {
+    try {
+      this.setState({
+        result: (eval(this.state.result).toString() || "")
+      })
+    } catch (e) {
+      this.setState({
+        result: 'error'
+      })
+    }
+  };
+
+  reset = () => {
+    this.setState({
+      result: ""
+    })
+  };
+
+  backspace = () => {
+    this.setState({
+      result: this.state.result.slice(0, -1)
+    })
+  };
+
+  onClick = button => {
+    switch(button) {
+      case '=':
+        this.calculate();
+        break;
+      case 'C':
+        this.reset();
+        break;
+      case 'CE':
+        this.backspace();
+        break;
+      default:
+        this.setState({
+          result: this.state.result + button
+        });
+    }
+
+  }
+
   render() {
     return(
       <div>
