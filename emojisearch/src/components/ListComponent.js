@@ -1,17 +1,17 @@
 import React, {Component} from 'react';
-import EmojiComponent from './EmojiComponent';
+import ItemComponent from './ItemComponent';
 
 class ListComponent extends Component {
   render() {
-    const emojis = [];
-    for(let i = 0; i < 10; i++) {
-      emojis.push(<EmojiComponent/>)
-    }
+    const items = [];
+    this.props.items.forEach(item => {
+      items.push(<ItemComponent data={item}/>)
+    })
 
     return(
     <div>
       <ul>
-        {emojis}
+        {items}
       </ul>
     </div>
     );

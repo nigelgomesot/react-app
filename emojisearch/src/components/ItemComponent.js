@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 
-class EmojiComponent extends Component {
+class ItemComponent extends Component {
   render() {
     return(
       <li>
-        Emoji
+        {this.props.data}
       </li>
     );
   }
 }
 
-export default EmojiComponent;
+export default ItemComponent;

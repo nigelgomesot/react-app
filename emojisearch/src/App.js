@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import SearchComponent from './components/SearchComponent';
 import ListComponent from './components/ListComponent';
+import filterEmojis from './filterEmojis.js';
 
 class App extends Component {
   constructor() {
     super();
+    this.state = {
+      emojis: filterEmojis('', 20)
+    };
   }
 
   render() {
@@ -14,7 +18,7 @@ class App extends Component {
             <SearchComponent />
           </section>
           <section id="list">
-            <ListComponent />
+            <ListComponent items={this.state.emojis}/>
           </section>
       </main>
     );
