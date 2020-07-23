@@ -4,7 +4,9 @@ class ItemComponent extends Component {
   render() {
     return(
       <li>
-        {this.props.data}
+        <span>{this.props.data.symbol}</span>
+        &nbsp;
+        <span>{this.props.data.title}</span>
       </li>
     );
   }

@@ -11,11 +11,17 @@ class App extends Component {
     };
   }
 
+  handleSearch = event => {
+    this.setState({
+      emojis: filterEmojis(event.target.value, 5)
+    });
+  }
+
   render() {
     return(
       <main>
           <section id="search">
-            <SearchComponent />
+            <SearchComponent handleTextChange={this.handleSearch}/>
           </section>
           <section id="list">
             <ListComponent items={this.state.emojis}/>
