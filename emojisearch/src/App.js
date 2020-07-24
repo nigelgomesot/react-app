@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import SearchComponent from './components/SearchComponent';
 import ListComponent from './components/ListComponent';
 import filterEmojis from './filterEmojis.js';
+import './App.css';
 
 class App extends Component {
   constructor() {
@@ -13,7 +14,7 @@ class App extends Component {
 
   handleSearch = event => {
     this.setState({
-      emojis: filterEmojis(event.target.value, 5)
+      emojis: filterEmojis(event.target.value, 20)
     });
   }
 
